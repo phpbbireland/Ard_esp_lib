@@ -2,7 +2,8 @@
 
 A basic library for development of Neuron Tech (https://hackaday.io/projects/hacker/31514) projects using Arduino and ESP8266 WiFi Module  
   
-Currently the Arduino Uno/Mega is used to do all the processing however we do intend to examine the possibility of using the ESP's on-board microcontroller to replace the arduino for simple applications...  
+Programming the ESP8266 through the Arduino IDE (modified for use with ESP8266)...  (https://github.com/esp8266/Arduino)  
+A sample sketch in: WiFiWebServer/WiFiWebServer.ino compiled with Arduino arduino-1.6.5 is included for testing. It will allow setting of any GPIO (assuming you have access to it) from the web interface (browser address bar)...  
 
 In one of the planned application, several ESP modules incorporating various sensors will collect real time security information and forward this information via WiFi to a web server (local or remote)...  
 
