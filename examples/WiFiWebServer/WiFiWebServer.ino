@@ -1,8 +1,8 @@
 /*
  *  This sketch demonstrates how to set up a simple HTTP-like server.
  *  The server will set a GPIO pin depending on the request
- *    http://server_ip/gpioX/0 will set the GPIOX low,
- *    http://server_ip/gpioC/1 will set the GPIOX high
+ *    http://server_ip/gpio=2/state=0 will set the GPIO 2 low,
+ *    http://server_ip/gpio=A/state=1 will set the GPIO 10 high
  *  server_ip is the IP address of the ESP8266 module, will be
  *  printed to Serial when the module is connected.
  *  We can now set(1)/reset(0) any GPIO between 0 and 15...
