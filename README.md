@@ -1,8 +1,26 @@
 ###Arduino ESP8266 Library (Ard_esp_lib)
 
-A basic library for development of Neuron Tech (https://hackaday.io/projects/hacker/31514) projects using Arduino and ESP8266 WiFi Module  
-  
-Programming the ESP8266 through the Arduino IDE (modified for use with ESP8266)...  (https://github.com/esp8266/Arduino)  
+A basic library for development of Neuron Tech (https://hackaday.io/projects/hacker/31514) projects using the ESP8266 WiFi Module  
+
+**Changes**  
+* Dropped the need for an additional microcontroller...
+* Programmed with the Arduino IDE (https://github.com/esp8266/Arduino)...  
+
+**ESP8266**
+
+* Wireless SoC
+* GPIO, I2C, ADC, SPI, PWM and some more
+* Running at 80MHz
+* 64KB of instruction RAM
+* 96KB of data RAM
+* 64KB boot ROM
+* SPI flash (Winbond W25Q40BVNIG)
+* RISC architecture
+* Deep sleep power <10uA, Power down leakage current < 5uA
+* Wake up and transmit packets in < 2ms
+* Standby power consumption of < 1.0mW (DTIM3)
+
+**Sample Sketches**
 A sample sketch in: WiFiWebServer/WiFiWebServer.ino compiled with Arduino arduino-1.6.5 is included for testing. It will allow setting of any GPIO (assuming you have access to it) from the web interface (browser address bar)...  
 
 In one of the planned application, several ESP modules incorporating various sensors will collect real time security information and forward this information via WiFi to a web server (local or remote)...  
