@@ -4,7 +4,7 @@
 	Sample WiFi Web Server for ESP32 with correctly sized text for your phones, 
 	no need to keep resizing every time you click a button plus I've added some nice css...
 */
-
+/*
  A simple web server that lets you blink a LED on you ESP32 via any browser...
  
  This sketch will print the IP address to the serial monitor once connected to the ESP32...
@@ -156,7 +156,7 @@ void loop()
 
     temp_celsius = get_temp();
     client.print(formboxstart);      
-    client.printf("Temperature: %4.2f °C ", temp_celsius);
+    client.printf("Temperature: %4.2f Â°C ", temp_celsius);
     client.print(formboxend);
             
     if(!onoff)
