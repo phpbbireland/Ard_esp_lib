@@ -6,6 +6,8 @@
  *  server_ip is the IP address of the ESP8266 module, will be
  *  printed to Serial when the module is connected.
  *  We can now set(1)/reset(0) any GPIO between 0 and 15...
+ 
+ Make sure you select Generic ESP8266 Module from Tools > Board (install if not present)...
  */
 
 #include <ESP8266WiFi.h>
