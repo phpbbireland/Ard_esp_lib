@@ -1,8 +1,10 @@
 /*
-	Version 1.2.0 03/12/2017 22:46
+	Version 1.2.1 03/12/2017 22:46
 
 	Sample WiFi Web Server for ESP32 with correctly sized text for your phones, 
 	no need to keep resizing every time you click a button plus I've added some nice css...
+	
+	Don't forget to add your board type in Tools > Board Manager & make sure it selected... I use ESP32 Dev Module.
 */
 /*
  A simple web server that lets you blink a LED on you ESP32 via any browser...
