@@ -1,10 +1,9 @@
 /*
-	Version 1.2.1 (updated) 26/04/2019 05:24
+ Version 1.2.2 (updated) 26/04/2019 05:54
 
-	Sample WiFi Web Server for ESP32 with correctly sized text for your phones (and some nice css)...
-*/
+ Sample WiFi Web Server for ESP32 with correctly sized text for your phone,
+ no need to keep resizing every time you click a button plus I've added some nice css...
 
-/*
  A simple web server that lets you blink a LED on you ESP32 via any browser...
  
  This sketch will print the IP address to the serial monitor once connected to the ESP32...
@@ -18,7 +17,7 @@
 
  Note I use an old school placement for '{}' (curly braces) which makes the code more readable IMHO...
  Mike
- */
+*/
 
 #include <WiFi.h>
 #include <time.h>
@@ -32,11 +31,12 @@ uint8_t temprature_sens_read();
 }
 #endif
 
+
 #define BLINK_GPIO 2
 #define GPIO4 4
 
-const char* ssid     = "ssid_here";
-const char* password = "password_here";
+const char* ssid     = "your ssid";
+const char* password = "your password";
 
 uint8_t state;
 uint8_t state4;
@@ -55,6 +55,7 @@ const char* style3 = " @media screen and (max-width: 1024px) { body { background
 const char* formboxstart = "<div class=\"formbox\">";
 const char* formboxend = "</div></a><br /><br />";
 const char* formboxendx = "</div><br /><br />";
+
 
 void setup()
 {
@@ -150,7 +151,7 @@ void loop()
     client.print(style2);
     client.print("</head><body style=\"margin: auto auto; width:94%; margin-top:60px; font-size:16px;\"  @media screen and (max-width: 961px) { body { background: cyan; } .formbox { font-size:5vw; } } >");
 
-   state = digitalRead(BLINK_GPIO);
+    state = digitalRead(BLINK_GPIO);
     state4 = digitalRead(4);
     onoff = state;
 
@@ -211,5 +212,4 @@ float get_temp()
   temp_farenheit= temprature_sens_read();
   temp_celsius = ( temp_farenheit - 32 ) / 1.8;
   return(temp_celsius);
-}
 }
