@@ -1,20 +1,19 @@
 /*
-	Version 1.2.1 03/12/2017 22:46
+	Version 1.2.1 (updated) 26/04/2019 05:24
 
-	Sample WiFi Web Server for ESP32 with correctly sized text for your phones, 
-	no need to keep resizing every time you click a button plus I've added some nice css...
-	
-	Don't forget to add your board type in Tools > Board Manager & make sure it selected... I use ESP32 Dev Module.
+	Sample WiFi Web Server for ESP32 with correctly sized text for your phones (and some nice css)...
 */
+
 /*
  A simple web server that lets you blink a LED on you ESP32 via any browser...
  
  This sketch will print the IP address to the serial monitor once connected to the ESP32...
- From there, you can open that address in a web browser to turn on/off the LED on pin 2 (the doit board uses pin 2 for the blue led).
+ From there, you can open that address in a web browser to turn on/off the LED and set GPIO 4 low/high (tested on the doit board which uses pin 2 for the blue led).
 
  To program your ESP32 using Arduino IDE, you may need to first set the ESP32 in program mode...
  Do this by holding down the BOOT button and then pressing the EN button, then release both...
- 
+
+ If you get compile errors, ensure you have the correct board selected (compiles with ESP32 Wrover Module)
  Opening the serial monitor may provide some useful information (depending on the previously uploaded program)...
 
  Note I use an old school placement for '{}' (curly braces) which makes the code more readable IMHO...
@@ -25,7 +24,6 @@
 #include <time.h>
 #include <sys/time.h>
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -33,7 +31,6 @@ uint8_t temprature_sens_read();
 #ifdef __cplusplus
 }
 #endif
-
 
 #define BLINK_GPIO 2
 #define GPIO4 4
@@ -52,11 +49,12 @@ WiFiServer server(80);
 
 const char* style0 = "<style type=\"text/css\"> .formbox { margin:auto; width: 94%; text-align:center; background-color:#fdf6e3; border: solid 1px #E3E5E5;";
 const char* style1 = " box-shadow: 2px 2px 2px 2px #BBB; border-radius: 5px; padding: 10px; } a:hover, a:visited, a:link, a:active { text-decoration: none; }";
+const char* style2 = " </style>";
 const char* style3 = " @media screen and (max-width: 1024px) { body { background: cyan; } .formbox { font-size:5vw; min-height:10vw;  line-height:120px;} }</style>";
 
 const char* formboxstart = "<div class=\"formbox\">";
-const char* formboxend = "</div><br /><br />";
-const char* closediv = "</div>";
+const char* formboxend = "</div></a><br /><br />";
+const char* formboxendx = "</div><br /><br />";
 
 void setup()
 {
@@ -149,24 +147,23 @@ void loop()
     client.print("<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\">");  // the content of the HTTP response follows the header:
     client.print(style0);
     client.print(style1);
-    //client.print(style2);
+    client.print(style2);
     client.print("</head><body style=\"margin: auto auto; width:94%; margin-top:60px; font-size:16px;\"  @media screen and (max-width: 961px) { body { background: cyan; } .formbox { font-size:5vw; } } >");
 
-    state = digitalRead(BLINK_GPIO);
+   state = digitalRead(BLINK_GPIO);
     state4 = digitalRead(4);
     onoff = state;
 
     temp_celsius = get_temp();
     client.print(formboxstart);      
     client.printf("Temperature: %4.2f °C ", temp_celsius);
-    client.print(formboxend);
+    client.print(formboxendx);
             
     if(!onoff)
     {
       client.print("<a href=\"/H2\">");
       client.print(formboxstart);
       client.print("Turn the led <strong>On</strong>");
-      client.print(closediv);
       client.print(formboxend);
     } 
     else
@@ -174,7 +171,6 @@ void loop()
       client.print("<a href=\"/L2\">");
       client.print(formboxstart);
       client.print("Turn the Led <strong>off</strong>");
-      client.print(closediv);
       client.print(formboxend);
     }
 
@@ -183,7 +179,6 @@ void loop()
       client.print("<a href=\"/H4\">");
       client.print(formboxstart);
       client.print("Set GPIO4 <strong>High</strong>");
-      client.print(closediv);
       client.print(formboxend);
     } 
     else
@@ -191,13 +186,13 @@ void loop()
       client.print("<a href=\"/L4\">");
       client.print(formboxstart);
       client.print("Set GPIO4 <strong>Low</strong>");
-      client.print(closediv);
       client.print(formboxend);
     }
 
-    client.print("<a href=\"/\"><div class=\"formbox\">");      
+    client.print("<a href=\"/\">");
+    client.print(formboxstart);    
     client.print("Get System Status");
-    client.print("</div></a>");
+    client.print(formboxend);
     client.print("</body></html>");                       // The HTTP response ends with another blank line:
     client.println();
   
@@ -216,4 +211,5 @@ float get_temp()
   temp_farenheit= temprature_sens_read();
   temp_celsius = ( temp_farenheit - 32 ) / 1.8;
   return(temp_celsius);
+}
 }
