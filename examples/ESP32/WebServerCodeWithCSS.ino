@@ -45,17 +45,12 @@ float temp_celsius;
 
 WiFiServer server(80);
 
-// in an ideal world style would be loaded from a file. perhaps later + common shtml code to save spacec + added a little code to make the text larger when viewed on a phone //
+const char* style = "<style type=\"text/css\"> a{color:#476669;text-decoration:none;}.formbox{margin:auto;width:90%;text-align:center;background-color:#fdf6e3;border:solid 1px #777;border-radius:20px;line-height:70px;box-shadow:2px 2px 2px 2px #558d93;border-radius:12px;padding:10px;} @media screen and (max-width:1024px){body{background:cyan;}.formbox{font-size:5vw;min-height:10vw;line-height:120px;}</style>";
 
-const char* style0 = "<style type=\"text/css\"> .formbox { margin:auto; width: 94%; text-align:center; background-color:#fdf6e3; border: solid 1px #E3E5E5;";
-const char* style1 = " box-shadow: 2px 2px 2px 2px #BBB; border-radius: 5px; padding: 10px; } a:hover, a:visited, a:link, a:active { text-decoration: none; }";
-const char* style2 = " </style>";
-const char* style3 = " @media screen and (max-width: 1024px) { body { background: cyan; } .formbox { font-size:5vw; min-height:10vw;  line-height:120px;} }</style>";
-
+const char* formboxstartx = "<div class=\"formboxx\">";
 const char* formboxstart = "<div class=\"formbox\">";
 const char* formboxend = "</div></a><br /><br />";
 const char* formboxendx = "</div><br /><br />";
-
 
 void setup()
 {
@@ -77,7 +72,6 @@ void setup()
         delay(500);
         Serial.print(".");
     }
-
     Serial.println("");
     Serial.println("WiFi connected.");
     Serial.println("IP address: ");
@@ -146,16 +140,14 @@ void loop()
     client.println("Content-type:text/html");
     client.println();
     client.print("<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\">");  // the content of the HTTP response follows the header:
-    client.print(style0);
-    client.print(style1);
-    client.print(style2);
-    client.print("</head><body style=\"margin: auto auto; width:94%; margin-top:60px; font-size:16px;\"  @media screen and (max-width: 961px) { body { background: cyan; } .formbox { font-size:5vw; } } >");
+    client.print(style);
+    client.print("</head><body style=\"margin: auto auto; width:94%; max-width: 800px; margin-top:60px; font-size:16px; color:#000; \" >");
 
     state = digitalRead(BLINK_GPIO);
     state4 = digitalRead(4);
     onoff = state;
-
     temp_celsius = get_temp();
+    
     client.print(formboxstart);      
     client.printf("Temperature: %4.2f °C ", temp_celsius);
     client.print(formboxendx);
